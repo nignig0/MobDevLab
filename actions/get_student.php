@@ -7,8 +7,10 @@ header('Content-Type: application/json');
 $method = $_SERVER['REQUEST_METHOD'];
 
 if ($method === 'GET' && isset($_GET['id'])) {
+    //if there is a get request to this file and 
 
     if (!is_numeric($_GET['id'])) {
+        //if the id is not numeric, let the user know its an invalid id
         http_response_code(400);
         echo json_encode(["message" => "Invalid ID"]);
         exit;
@@ -22,7 +24,7 @@ if ($method === 'GET' && isset($_GET['id'])) {
 }
 
 function getStudent($id){
-    global $conn;
+    global $conn; //db connection
 
     $statement = $conn->prepare('SELECT * FROM students WHERE id = ?');
 
@@ -39,6 +41,7 @@ function getStudent($id){
     $student = $result->fetch_assoc();
 
     if (!$student) {
+        //if we dont find the student let the user know
         http_response_code(404);
         echo json_encode(["message" => "Student not found"]);
         return;
@@ -46,6 +49,7 @@ function getStudent($id){
 
     http_response_code(200);
     echo json_encode($student);
+    //if all is well return the user record
 
     $statement->close();
 }

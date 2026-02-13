@@ -7,7 +7,10 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 if ($method === 'POST') {
 
-    // Check required fields
+    // if its a post request to this file
+    //validate the input
+    //then create user
+    
     if (empty($_POST['firstname']) || empty($_POST['lastname']) || empty($_POST['major'])) {
         http_response_code(400);
         echo json_encode(["message" => "firstname, lastname and major required"]);
@@ -19,6 +22,9 @@ if ($method === 'POST') {
         $_POST['lastname'],
         $_POST['major']
     );
+}else {
+    http_response_code(400);
+    echo json_encode(["message" => "Invalid request"]);
 }
 
 function createStudent($firstname, $lastname, $major){

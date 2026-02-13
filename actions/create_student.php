@@ -35,8 +35,8 @@ function createStudent($firstname, $lastname, $major){
     $statement->bind_param('sss', $firstname, $lastname, $major);
 
     if($statement->execute()){
-        http_response_code(201); // Created
-        echo json_encode(["message" => "Student created successfully", "id" => $statement->insert_id]);
+        http_response_code(201); 
+        echo json_encode(["message" => "Student created successfully", "StudentId" => $statement->insert_id]);
     } else {
         http_response_code(500);
         echo json_encode(["message" => "Error creating student"]);
